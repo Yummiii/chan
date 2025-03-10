@@ -67,6 +67,6 @@ pub fn handle_db_error<T: ApiData>(
         e => {
             eprintln!("Database error: {}", e);
             internal_error("Database error")
-        },
+        }
     }
 }

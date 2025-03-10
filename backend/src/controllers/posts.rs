@@ -1,10 +1,11 @@
 use super::ApiTags;
 use crate::{
-    database::{Pools, posts::Post},
+    database::{Pools, images::Image, posts::Post},
     hdbe,
     response::{Response, ok},
 };
 use chrono::Utc;
+use cuid2::cuid;
 use poem::web::Data;
 use poem_openapi::{Multipart, OpenApi, types::multipart::Upload};
 
@@ -40,6 +41,20 @@ impl PostsController {
             hdbe!(pools.posts.get_by_id(thread).await, "Thread not found");
         }
 
+        let image_id = if let Some(image) = post.image {
+            let image = Image {
+                mime: image.content_type().unwrap().to_owned(),
+                data: image.into_vec().await.unwrap(),
+                id: cuid(),
+            };
+
+            hdbe!(pools.images.create(&image).await);
+
+            Some(image.id)
+        } else {
+            None
+        };
+
         let post = Post {
             id: 0,
             content: post.content,
@@ -47,7 +62,7 @@ impl PostsController {
             board_id: board.id,
             user_id: None,
             thread_id: post.thread,
-            image_id: None,
+            image_id,
         };
 
         ok(hdbe!(pools.posts.create(&post).await))

@@ -17,8 +17,8 @@ create index ix_boards_slug on boards (slug);
 
 create table images (
     id varchar(24) not null,
-    content longblob not null,
-    mime_type varchar(255) not null,
+    data longblob not null,
+    mime varchar(255) not null,
     primary key (id)
 );
 

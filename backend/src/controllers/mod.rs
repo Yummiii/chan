@@ -1,9 +1,11 @@
 use boards::BoardsController;
+use images::ImagesController;
 use poem_openapi::{OpenApiService, Tags};
 use posts::PostsController;
 use test::TestController;
 
 mod boards;
+mod images;
 mod posts;
 mod test;
 
@@ -14,11 +16,26 @@ pub enum ApiTags {
     Test,
     /// Operations related to boards.
     Boards,
+    /// Endpoint for getting images.
+    Images,
 }
 
-pub fn get_service() -> OpenApiService<(PostsController, TestController, BoardsController), ()> {
+pub fn get_service() -> OpenApiService<
+    (
+        PostsController,
+        TestController,
+        BoardsController,
+        ImagesController,
+    ),
+    (),
+> {
     OpenApiService::new(
-        (PostsController, TestController, BoardsController),
+        (
+            PostsController,
+            TestController,
+            BoardsController,
+            ImagesController,
+        ),
         "Chan",
         "1.0",
     )
