@@ -5,6 +5,8 @@ edition = "2024"
 
 [dependencies]
 anyhow = "1.0.96"
+argon2 = "0.5.3"
+chrono = "0.4.40"
 figment = { version = "0.10.19", features = ["toml"] }
 poem = { version = "3.1.7", features = ["multipart", "anyhow", "static-files"] }
 poem-openapi = { version = "5.1.8", features = ["swagger-ui"] }
