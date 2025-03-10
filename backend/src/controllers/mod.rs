@@ -9,6 +9,12 @@ mod images;
 mod posts;
 mod test;
 
+const SERVER_URL: &str = if cfg!(debug_assertions) {
+    "http://localhost:3000"
+} else {
+    "https://sharo-api.zuraaa.com"
+};
+
 #[derive(Tags)]
 pub enum ApiTags {
     /// Operations related to posts.
@@ -39,5 +45,5 @@ pub fn get_service() -> OpenApiService<
         "Chan",
         "1.0",
     )
-    .server("http://localhost:3000")
+    .server(SERVER_URL)
 }
