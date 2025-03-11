@@ -12,7 +12,7 @@ mod test;
 const SERVER_URL: &str = if cfg!(debug_assertions) {
     "http://localhost:3000"
 } else {
-    "https://sharo-api.zuraaa.com"
+    "https://api.zuraaa.com/sharo"
 };
 
 #[derive(Tags)]
