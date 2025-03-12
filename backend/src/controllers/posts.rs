@@ -26,7 +26,7 @@ struct NewPost {
 #[OpenApi(prefix_path = "/posts", tag = "ApiTags::Posts")]
 impl PostsController {
     /// Creates a new post
-    #[oai(path = "/", method = "post")]
+    #[oai(path = "/", method = "post", operation_id = "posts-create")]
     async fn create(&self, pools: Data<&Pools>, mut post: NewPost) -> Response<Post> {
         let board = hdbe!(
             pools.boards.get_by_slug(&post.board).await,

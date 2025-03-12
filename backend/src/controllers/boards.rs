@@ -1,9 +1,11 @@
 use super::ApiTags;
 use crate::{
     database::{Pools, boards::Board},
+    hdbe,
+    models::board_overview::BoardOverview,
     response::{Response, ok},
 };
-use poem::web::Data;
+use poem::web::{Data, Path};
 use poem_openapi::OpenApi;
 
 pub struct BoardsController;
@@ -16,5 +18,17 @@ impl BoardsController {
         let boards = pools.boards.get_all().await.unwrap();
 
         ok(boards)
+    }
+
+    #[oai(
+        path = "/:board/overview",
+        method = "get",
+        operation_id = "board-overview"
+    )]
+    async fn overview(&self, board: Path<String>, pools: Data<&Pools>) -> Response<BoardOverview> {
+        let board = hdbe!(pools.boards.get_by_slug(&board).await, "Board not found");
+        let posts = hdbe!(pools.posts.get_root_by_board(board.id).await);
+
+        ok(BoardOverview { threads: posts })
     }
 }

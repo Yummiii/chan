@@ -11,6 +11,7 @@ impl<T: ParseFromJSON + ToJSON + Send + Sync> ApiData for T {}
 pub struct ResponseObject<T: ApiData> {
     msg: String,
     data: Option<T>,
+    is_error: bool,
 }
 
 impl<T: ApiData> ResponseObject<T> {
@@ -18,15 +19,24 @@ impl<T: ApiData> ResponseObject<T> {
         Self {
             msg: "OK".to_string(),
             data: Some(data),
+            is_error: false,
         }
     }
 
     pub fn bad_request(msg: String) -> Self {
-        Self { msg, data: None }
+        Self {
+            msg,
+            data: None,
+            is_error: true,
+        }
     }
 
     pub fn internal_server_error(msg: String) -> Self {
-        Self { msg, data: None }
+        Self {
+            msg,
+            data: None,
+            is_error: true,
+        }
     }
 }
 

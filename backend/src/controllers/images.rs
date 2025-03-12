@@ -15,7 +15,7 @@ pub struct ImagesController;
 #[OpenApi(prefix_path = "/i", tag = "ApiTags::Images")]
 impl ImagesController {
     /// Get image by id
-    #[oai(path = "/:id", method = "get")]
+    #[oai(path = "/:id", method = "get", operation_id = "images-get")]
     async fn get_image(
         &self,
         id: Path<String>,

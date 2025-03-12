@@ -42,4 +42,21 @@ impl PostsRepository {
 
         self.get_by_id(res.last_insert_id()).await
     }
+
+    pub async fn get_root_by_board(&self, board: u64) -> Result<Vec<Post>, sqlx::Error> {
+        let posts = sqlx::query_as::<_, Post>("select * from posts where board_id = ? and thread_id is null")
+            .bind(board)
+            .fetch_all(&self.pool)
+            .await?;
+        Ok(posts)
+    }
+
+    pub async fn get_thread(&self, root_id: u64) -> Result<Vec<Post>, sqlx::Error> {
+        let posts = sqlx::query_as::<_, Post>("select * from posts where thread_id = ? or id = ? order by created_at")
+            .bind(root_id)
+            .bind(root_id)
+            .fetch_all(&self.pool)
+            .await?;
+        Ok(posts)
+    }
 }

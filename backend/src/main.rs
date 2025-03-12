@@ -8,6 +8,7 @@ mod controllers;
 mod database;
 mod macros;
 mod response;
+mod models;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
