@@ -11,6 +11,9 @@ mod models;
 mod response;
 mod utils;
 
+#[cfg(test)]
+mod tests;
+
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
     pretty_env_logger::init();

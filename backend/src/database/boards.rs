@@ -1,5 +1,5 @@
-use sqlx::MySqlPool;
 use crate::models::board::Board;
+use sqlx::MySqlPool;
 
 #[derive(Clone)]
 pub struct BoardsRepository {
