@@ -25,7 +25,7 @@ struct UserCredentials {
 #[OpenApi(prefix_path = "/auth", tag = "ApiTags::Auth")]
 impl AuthController {
     /// Authenticates a user
-    #[oai(path = "/login", method = "post", operation_id = "auth-login")]
+    #[oai(path = "/", method = "post", operation_id = "auth-login")]
     async fn login(
         &self,
         pools: Data<&Pools>,
