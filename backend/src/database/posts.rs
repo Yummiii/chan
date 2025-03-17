@@ -1,16 +1,4 @@
-use poem_openapi::Object;
-use sqlx::prelude::FromRow;
-
-#[derive(Debug, FromRow, Object)]
-pub struct Post {
-    pub id: u64,
-    pub content: String,
-    pub created_at: i64,
-    pub board_id: u64,
-    pub user_id: Option<u64>,
-    pub thread_id: Option<u64>,
-    pub image_id: Option<String>,
-}
+use crate::models::post::Post;
 
 #[derive(Clone)]
 pub struct PostsRepository {
@@ -44,19 +32,23 @@ impl PostsRepository {
     }
 
     pub async fn get_root_by_board(&self, board: u64) -> Result<Vec<Post>, sqlx::Error> {
-        let posts = sqlx::query_as::<_, Post>("select * from posts where board_id = ? and thread_id is null")
-            .bind(board)
-            .fetch_all(&self.pool)
-            .await?;
+        let posts = sqlx::query_as::<_, Post>(
+            "select * from posts where board_id = ? and thread_id is null",
+        )
+        .bind(board)
+        .fetch_all(&self.pool)
+        .await?;
         Ok(posts)
     }
 
     pub async fn get_thread(&self, root_id: u64) -> Result<Vec<Post>, sqlx::Error> {
-        let posts = sqlx::query_as::<_, Post>("select * from posts where thread_id = ? or id = ? order by created_at")
-            .bind(root_id)
-            .bind(root_id)
-            .fetch_all(&self.pool)
-            .await?;
+        let posts = sqlx::query_as::<_, Post>(
+            "select * from posts where thread_id = ? or id = ? order by created_at",
+        )
+        .bind(root_id)
+        .bind(root_id)
+        .fetch_all(&self.pool)
+        .await?;
         Ok(posts)
     }
 }

@@ -14,7 +14,7 @@ pub fn hash_password(password: &str) -> String {
 }
 
 pub fn verify_password(password: &str, hash: &str) -> bool {
-    let parsed_hash = PasswordHash::new(&hash).unwrap();
+    let parsed_hash = PasswordHash::new(hash).unwrap();
     let argon2 = Argon2::default();
 
     argon2

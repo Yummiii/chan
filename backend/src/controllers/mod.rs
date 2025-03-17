@@ -6,12 +6,12 @@ use posts::PostsController;
 use test::TestController;
 use threads::ThreadsController;
 
+mod auth;
 mod boards;
 mod images;
 mod posts;
 mod test;
 mod threads;
-mod auth;
 
 const SERVER_URL: &str = if cfg!(debug_assertions) {
     "http://localhost:3000"
@@ -30,7 +30,7 @@ pub enum ApiTags {
     Images,
     /// Operations related to threads.
     Threads,
-    Auth
+    Auth,
 }
 
 pub fn get_service() -> OpenApiService<
@@ -40,7 +40,7 @@ pub fn get_service() -> OpenApiService<
         BoardsController,
         ImagesController,
         ThreadsController,
-        AuthController
+        AuthController,
     ),
     (),
 > {
@@ -51,7 +51,7 @@ pub fn get_service() -> OpenApiService<
             BoardsController,
             ImagesController,
             ThreadsController,
-            AuthController
+            AuthController,
         ),
         "Chan",
         "1.0",

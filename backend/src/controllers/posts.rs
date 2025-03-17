@@ -1,7 +1,8 @@
 use super::ApiTags;
 use crate::{
-    database::{Pools, images::Image, posts::Post},
+    database::Pools,
     hdbe,
+    models::{image::Image, post::Post},
     response::{Response, bad_request, ok},
 };
 use chrono::Utc;

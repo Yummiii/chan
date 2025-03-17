@@ -24,7 +24,9 @@ impl ImagesController {
         match pools.images.get_by_id(&id.0).await {
             Ok(img) => {
                 let attachment = Attachment::new(img.data).attachment_type(AttachmentType::Inline);
-                Ok(Response::new(attachment).header("Content-Type", img.mime).header("Cache-Control", "max-age=2592000, private"))
+                Ok(Response::new(attachment)
+                    .header("Content-Type", img.mime)
+                    .header("Cache-Control", "max-age=2592000, private"))
             }
             Err(_) => Err(NotFound(NotFoundError)),
         }

@@ -7,6 +7,12 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize, Clone)]
 pub struct Config {
     pub database: DatabaseConfig,
+    pub sharo: Sharo,
+}
+
+#[derive(Debug, Deserialize, Clone)]
+pub struct Sharo {
+    pub jwt_secret: String,
 }
 
 #[derive(Debug, Deserialize, Clone)]

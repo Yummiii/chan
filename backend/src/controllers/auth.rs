@@ -1,6 +1,14 @@
 use super::ApiTags;
 use crate::{
-    database::{users::User, Pools}, hdbe, models::token::Token, response::{bad_request, ok, Response}, utils::password::{hash_password, verify_password}
+    config::Config,
+    database::Pools,
+    hdbe,
+    models::{token::Token, user::User},
+    response::{Response, bad_request, ok},
+    utils::{
+        jwt::create_token,
+        password::{hash_password, verify_password},
+    },
 };
 use cuid2::cuid;
 use poem::web::Data;
@@ -21,17 +29,19 @@ impl AuthController {
     async fn login(
         &self,
         pools: Data<&Pools>,
+        config: Data<&Config>,
         credentials: Json<UserCredentials>,
     ) -> Response<Token> {
         let user = hdbe!(
             pools.users.get_by_username(&credentials.username).await,
             "Invalid username or password"
         );
+
         if !verify_password(&credentials.password, &user.pass_hash) {
             return bad_request("Invalid username or password");
         }
 
-        ok(Token::new("todo"))
+        ok(Token::new(create_token(user, &config.sharo.jwt_secret)))
     }
 
     /// Registers a new user
@@ -39,6 +49,7 @@ impl AuthController {
     async fn register(
         &self,
         pools: Data<&Pools>,
+        config: Data<&Config>,
         credentials: Json<UserCredentials>,
     ) -> Response<Token> {
         let user_db = pools.users.get_by_username(&credentials.username).await;
@@ -46,7 +57,7 @@ impl AuthController {
             return bad_request("Username is already taken");
         }
 
-        let _user = hdbe!(
+        let user = hdbe!(
             pools
                 .users
                 .create_user(&User {
@@ -57,6 +68,6 @@ impl AuthController {
                 .await
         );
 
-        ok(Token::new("todo"))
+        ok(Token::new(create_token(user, &config.sharo.jwt_secret)))
     }
 }

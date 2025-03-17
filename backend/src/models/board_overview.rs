@@ -1,4 +1,4 @@
-use crate::database::posts::Post;
+use super::post::Post;
 use poem_openapi::Object;
 
 #[derive(Debug, Object)]

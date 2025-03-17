@@ -7,8 +7,8 @@ mod config;
 mod controllers;
 mod database;
 mod macros;
-mod response;
 mod models;
+mod response;
 mod utils;
 
 #[tokio::main]
@@ -25,7 +25,8 @@ async fn main() -> Result<(), std::io::Error> {
         .nest("/", api_service)
         .nest("/swagger", ui)
         .with(Cors::new())
-        .data(db);
+        .data(db)
+        .data(config);
 
     Server::new(TcpListener::bind("0.0.0.0:3000"))
         .run(route)

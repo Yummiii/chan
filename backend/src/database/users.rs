@@ -1,12 +1,4 @@
-use poem_openapi::Object;
-use sqlx::prelude::FromRow;
-
-#[derive(Object, FromRow)]
-pub struct User {
-    pub id: String,
-    pub username: String,
-    pub pass_hash: String,
-}
+use crate::models::user::User;
 
 #[derive(Clone)]
 pub struct UsersRepository {
@@ -27,13 +19,13 @@ impl UsersRepository {
     }
 
     pub async fn create_user(&self, user: &User) -> Result<User, sqlx::Error> {
-        sqlx::query("INSERT INTO users (id, username, pass_hash) VALUES (?, ?, ?)")
+        sqlx::query("INSERT INTO users (id, username, ?pass_hash) VALUES (?, ?, ?)")
             .bind(&user.id)
             .bind(&user.username)
             .bind(&user.pass_hash)
             .execute(&self.pool)
             .await?;
-        Ok(self.get_by_id(&user.id).await?)
+        self.get_by_id(&user.id).await
     }
 
     pub async fn get_by_username(&self, username: &str) -> Result<User, sqlx::Error> {

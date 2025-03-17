@@ -1,7 +1,8 @@
 use super::ApiTags;
 use crate::{
-    database::{Pools, posts::Post},
+    database::Pools,
     hdbe,
+    models::post::Post,
     response::{Response, bad_request, ok},
 };
 use poem::web::{Data, Path};

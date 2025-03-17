@@ -1,12 +1,5 @@
-use poem_openapi::Object;
-use sqlx::{MySqlPool, prelude::FromRow};
-
-#[derive(Debug, FromRow, Object)]
-pub struct Board {
-    pub id: u64,
-    pub name: String,
-    pub slug: String,
-}
+use sqlx::MySqlPool;
+use crate::models::board::Board;
 
 #[derive(Clone)]
 pub struct BoardsRepository {
