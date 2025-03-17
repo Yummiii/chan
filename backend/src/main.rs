@@ -9,6 +9,7 @@ mod database;
 mod macros;
 mod response;
 mod models;
+mod utils;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {

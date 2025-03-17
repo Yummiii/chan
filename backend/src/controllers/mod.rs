@@ -1,3 +1,4 @@
+use auth::AuthController;
 use boards::BoardsController;
 use images::ImagesController;
 use poem_openapi::{OpenApiService, Tags};
@@ -10,6 +11,7 @@ mod images;
 mod posts;
 mod test;
 mod threads;
+mod auth;
 
 const SERVER_URL: &str = if cfg!(debug_assertions) {
     "http://localhost:3000"
@@ -26,7 +28,9 @@ pub enum ApiTags {
     Boards,
     /// Endpoint for getting images.
     Images,
+    /// Operations related to threads.
     Threads,
+    Auth
 }
 
 pub fn get_service() -> OpenApiService<
@@ -35,7 +39,8 @@ pub fn get_service() -> OpenApiService<
         TestController,
         BoardsController,
         ImagesController,
-        ThreadsController
+        ThreadsController,
+        AuthController
     ),
     (),
 > {
@@ -45,7 +50,8 @@ pub fn get_service() -> OpenApiService<
             TestController,
             BoardsController,
             ImagesController,
-            ThreadsController
+            ThreadsController,
+            AuthController
         ),
         "Chan",
         "1.0",

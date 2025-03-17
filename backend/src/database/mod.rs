@@ -2,16 +2,19 @@ use boards::BoardsRepository;
 use images::ImagesRepository;
 use posts::PostsRepository;
 use sqlx::mysql::MySqlPoolOptions;
+use users::UsersRepository;
 
 pub mod boards;
 pub mod images;
 pub mod posts;
+pub mod users;
 
 #[derive(Clone)]
 pub struct Pools {
     pub boards: BoardsRepository,
     pub posts: PostsRepository,
     pub images: ImagesRepository,
+    pub users: UsersRepository
 }
 
 impl Pools {
@@ -31,6 +34,7 @@ impl Pools {
             boards: BoardsRepository::new(pool.clone()),
             posts: PostsRepository::new(pool.clone()),
             images: ImagesRepository::new(pool.clone()),
+            users: UsersRepository::new(pool.clone())
         }
     }
 }

@@ -2,7 +2,7 @@ use super::ApiTags;
 use crate::{
     database::{Pools, images::Image, posts::Post},
     hdbe,
-    response::{Response, ok},
+    response::{Response, bad_request, ok},
 };
 use chrono::Utc;
 use cuid2::cuid;
@@ -42,15 +42,23 @@ impl PostsController {
         }
 
         let image_id = if let Some(image) = post.image {
-            let image = Image {
-                mime: image.content_type().unwrap().to_owned(),
-                data: image.into_vec().await.unwrap(),
-                id: cuid(),
-            };
+            if let Some(content_type) = image.content_type() {
+                if !content_type.starts_with("image/") {
+                    return bad_request("Invalid image type");
+                }
 
-            hdbe!(pools.images.create(&image).await);
+                let image = Image {
+                    mime: content_type.to_owned(),
+                    data: image.into_vec().await.unwrap(),
+                    id: cuid(),
+                };
 
-            Some(image.id)
+                hdbe!(pools.images.create(&image).await);
+
+                Some(image.id)
+            } else {
+                None
+            }
         } else {
             None
         };

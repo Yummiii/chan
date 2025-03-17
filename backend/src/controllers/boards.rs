@@ -20,6 +20,7 @@ impl BoardsController {
         ok(boards)
     }
 
+    /// Gets the overview of a board by its slug. The overview has all the threads in the board.
     #[oai(
         path = "/:board/overview",
         method = "get",
