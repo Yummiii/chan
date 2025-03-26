@@ -19,7 +19,7 @@ async fn main() -> Result<(), std::io::Error> {
     pretty_env_logger::init();
 
     let config = Config::get();
-    let db = Pools::init(&config.database.url).await;
+    let db = Pools::init(&config.database.url).await.unwrap();
 
     let api_service = get_service();
     let ui = api_service.swagger_ui();
