@@ -22,7 +22,7 @@ impl PostsRepository {
         let query = sqlx::query("insert into posts (board_id, thread_id, user_id, content, image_id, created_at) values (?, ?, ?, ?, ?, ?)")
             .bind(post.board_id)
             .bind(post.thread_id)
-            .bind(post.user_id)
+            .bind(&post.user_id)
             .bind(&post.content)
             .bind(&post.image_id)
             .bind(post.created_at);
