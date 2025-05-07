@@ -19,7 +19,7 @@ impl UsersRepository {
     }
 
     pub async fn create_user(&self, user: &User) -> Result<User, sqlx::Error> {
-        sqlx::query("INSERT INTO users (id, username, ?pass_hash) VALUES (?, ?, ?)")
+        sqlx::query("INSERT INTO users (id, username, pass_hash) VALUES (?, ?, ?)")
             .bind(&user.id)
             .bind(&user.username)
             .bind(&user.pass_hash)

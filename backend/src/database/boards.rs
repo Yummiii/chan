@@ -27,4 +27,22 @@ impl BoardsRepository {
 
         Ok(board)
     }
+
+    pub async fn _get_by_id(&self, id: u64) -> Result<Board, sqlx::Error> {
+        let board = sqlx::query_as::<_, Board>("SELECT * FROM boards WHERE id = ?")
+            .bind(id)
+            .fetch_one(&self.pool)
+            .await?;
+
+        Ok(board)
+    }
+
+    pub async fn _create(&self, board: &Board) -> Result<Board, sqlx::Error> {
+        let query = sqlx::query("INSERT INTO boards (slug, name) VALUES (?, ?)")
+            .bind(&board.slug)
+            .bind(&board.name);
+        let res = query.execute(&self.pool).await?;
+
+        self._get_by_id(res.last_insert_id()).await
+    }
 }
