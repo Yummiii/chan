@@ -11,6 +11,7 @@ impl<T: ParseFromJSON + ToJSON + Send + Sync> ApiData for T {}
 pub struct ResponseObject<T: ApiData> {
     msg: String,
     data: Option<T>,
+    #[oai(rename = "isError")]
     is_error: bool,
 }
 
