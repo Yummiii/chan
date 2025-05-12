@@ -1,27 +1,28 @@
 <template>
-    <div>
-        <h1>Forum Social</h1>
+    <div class="main">
+        <post></post>
+        <post></post>
+        <post></post>
     </div>
 </template>
 
 <script>
+    import post from "./components/post.vue";
     export default {
+        components: {
+            post,
+        },
         data() {
-            return {
-                activePage: 0,
-                pages: [
-                    {
-                        link: { text: "Home", url: "index.html" },
-                        pageTitle: "Pagina principal",
-                        content: "",
-                    },
-                    {
-                        link: { text: "About", url: "about.html" },
-                        pageTitle: "Pagina sobre",
-                        content: "",
-                    },
-                ],
-            };
+            return {};
         },
     };
 </script>
+<style>
+    .main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-direction: column;
+    }
+</style>
