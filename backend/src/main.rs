@@ -1,9 +1,8 @@
-use config::Config;
+use chan_config::Config;
 use controllers::get_service;
 use database::Pools;
 use poem::{EndpointExt, Route, Server, listener::TcpListener, middleware::Cors};
 
-mod config;
 mod controllers;
 mod database;
 mod macros;
