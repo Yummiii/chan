@@ -57,6 +57,14 @@ impl AuthController {
             return bad_request("Username is already taken");
         }
 
+        if credentials.username.len() < 3 {
+            return bad_request("Username must be at least 3 characters long");
+        }
+
+        if credentials.username.len() > 20 {
+            return bad_request("Username must be at most 20 characters long");
+        }
+
         let user = hdbe!(
             pools
                 .users

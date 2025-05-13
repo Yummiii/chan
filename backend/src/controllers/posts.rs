@@ -42,6 +42,14 @@ impl PostsController {
             hdbe!(pools.posts.get_by_id(thread).await, "Thread not found");
         }
 
+        if post.content.is_empty() {
+            return bad_request("Post content cannot be empty");
+        }
+
+        if post.content.len() > 2000 {
+            return bad_request("Post content is too long");
+        }
+
         let image_id = if let Some(image) = post.image {
             if let Some(content_type) = image.content_type() {
                 if !content_type.starts_with("image/") {
