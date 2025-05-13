@@ -66,7 +66,7 @@
 
         methods: {
             addPost(text) {
-                if (text.length > 0 && text.length < 1000) {
+                if (text && text.length < 1000) {
                     let newPost = {
                         id: 4,
                         content: text,
