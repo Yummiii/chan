@@ -20,7 +20,7 @@ async fn connection() {
     let database = Pools::init(&config.database.url).await;
     assert!(
         database.is_ok(),
-        "Coneão com o banco de dados falhou após 5 tentativas"
+        "Conexão com o banco de dados falhou após 5 tentativas"
     )
 }
 

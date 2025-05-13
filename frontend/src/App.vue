@@ -1,27 +1,44 @@
+/* eslint-disable */
 <template>
-    <div>
-        <h1>Forum Social</h1>
-    </div>
+    <categories :routes="routes"></categories>
+    <board categoryName="Filmes"></board>
 </template>
 
 <script>
+    import { ref } from "vue";
+    import board from "./components/board.vue";
+    import categories from "./components/categories.vue";
+
+    let routes = ref([
+        {
+            id: 1,
+            name: "Livros",
+        },
+        {
+            id: 2,
+            name: "Filmes",
+        },
+        {
+            id: 3,
+            name: "Musica",
+        },
+        {
+            id: 4,
+            name: "Programação",
+        },
+    ]);
+
     export default {
+        components: {
+            categories,
+            board,
+        },
+
         data() {
             return {
-                activePage: 0,
-                pages: [
-                    {
-                        link: { text: "Home", url: "index.html" },
-                        pageTitle: "Pagina principal",
-                        content: "",
-                    },
-                    {
-                        link: { text: "About", url: "about.html" },
-                        pageTitle: "Pagina sobre",
-                        content: "",
-                    },
-                ],
+                routes: routes,
             };
         },
     };
 </script>
+<style></style>
