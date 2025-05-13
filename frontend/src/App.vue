@@ -1,28 +1,17 @@
 <template>
-    <div class="main">
-        <post></post>
-        <post></post>
-        <post></post>
-    </div>
+    <board categoryName="Filmes"></board>
 </template>
 
 <script>
-    import post from "./components/post.vue";
+    import board from "./components/board.vue";
     export default {
         components: {
-            post,
+            board,
         },
+
         data() {
             return {};
         },
     };
 </script>
-<style>
-    .main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        flex-direction: column;
-    }
-</style>
+<style></style>

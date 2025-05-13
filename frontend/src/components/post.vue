@@ -1,17 +1,8 @@
 <template>
-    <div class="post-container">
+    <div :class="{ replyStyle: reply.isReply }" class="post-container">
         <img src="../assets/jiji.jpg" alt="" />
         <p class="post-content-text">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam
-            quisquam consequatur doloremque doloribus cum similique eaque id!
-            Quo laudantium, perspiciatis repellendus similique delectus
-            explicabo reprehenderit. Nisi qui optio maiores fugiat, perferendis
-            veritatis natus cumque animi magnam eligendi officia. Possimus,
-            autem porro labore reiciendis sunt quam unde perferendis laborum
-            maiores voluptatem. Nisi qui optio maiores fugiat, perferendis
-            veritatis natus cumque animi magnam eligendi officia. Possimus,
-            autem porro labore reiciendis sunt quam unde perferendis laborum
-            maiores voluptatem.
+            {{ content }}
         </p>
     </div>
 </template>
@@ -19,6 +10,14 @@
 <script>
     export default {
         name: "post",
+
+        props: {
+            content: String,
+            reply: {
+                isReply: Boolean,
+                replyId: Number,
+            },
+        },
     };
 </script>
 
@@ -60,5 +59,9 @@
     .post-content-text {
         font-size: 0.9rem;
         word-wrap: break-word;
+    }
+
+    .replyStyle {
+        margin-left: 5%;
     }
 </style>
