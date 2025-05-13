@@ -1,6 +1,5 @@
 use super::ApiTags;
 use crate::{
-    config::Config,
     database::Pools,
     hdbe,
     models::{token::Token, user::User},
@@ -10,6 +9,7 @@ use crate::{
         password::{hash_password, verify_password},
     },
 };
+use chan_config::Config;
 use cuid2::cuid;
 use poem::web::Data;
 use poem_openapi::{Object, OpenApi, payload::Json};

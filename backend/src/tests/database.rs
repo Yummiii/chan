@@ -1,11 +1,11 @@
 use crate::{
-    config::Config,
     database::{
         Pools, boards::BoardsRepository, images::ImagesRepository, posts::PostsRepository,
         users::UsersRepository,
     },
     models::{board::Board, image::Image, post::Post, user::User},
 };
+use chan_config::Config;
 use chrono::Utc;
 use sqlx::MySqlPool;
 
