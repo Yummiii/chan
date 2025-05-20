@@ -6,7 +6,9 @@
                 placeholder="Escreva sua postagem..."
                 rows="4"
                 cols="50"></textarea>
-            <button @click="addPost(postTextContent)">Add Post</button>
+            <button id="post-btn" @click="addPost(postTextContent)">
+                Add Post
+            </button>
             <input
                 type="file"
                 name="img"
