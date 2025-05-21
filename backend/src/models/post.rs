@@ -5,9 +5,14 @@ use sqlx::prelude::FromRow;
 pub struct Post {
     pub id: u64,
     pub content: String,
+    #[oai(rename = "createdAt")]
     pub created_at: i64,
+    #[oai(rename = "boardId")]
     pub board_id: u64,
+    #[oai(rename = "userId")]
     pub user_id: Option<String>,
+    #[oai(rename = "threadId")]
     pub thread_id: Option<u64>,
+    #[oai(rename = "imageId")]
     pub image_id: Option<String>,
 }
