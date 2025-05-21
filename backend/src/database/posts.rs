@@ -33,7 +33,7 @@ impl PostsRepository {
 
     pub async fn get_root_by_board(&self, board: u64) -> Result<Vec<Post>, sqlx::Error> {
         let posts = sqlx::query_as::<_, Post>(
-            "select * from posts where board_id = ? and thread_id is null order by created_at limit 50",
+            "select * from posts where board_id = ? and thread_id is null order by created_at desc limit 50",
         )
         .bind(board)
         .fetch_all(&self.pool)
